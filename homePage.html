@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lina's Pomodoro Timer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="styles/homePage.css" >
+    
+  </head>
+  <body>
+    <div class="header-text-container">
+      <div class="circle"></div>
+      <div class="header-text">Focus Pomodoro Timer</div>
+    </div>
+    <div class="main-container">
+      
+      <div class="session-time-text">01 minute session</div>
+      <div class="session-timer">01:00</div>
+      <button  class="focus-button" id="js-focus-button">start focusing </button>
+    </div>
+    
+    <script>
+    const buttonElement = document.getElementById('js-focus-button');
+    
+    const timerDisplay = document.querySelector('.session-timer');
+    let totalSeconds = 1 * 60 ;
+    let timerOn = false;
+    let timerInterval = null;
+    let timeIndicatorText = document.querySelector('.session-time-text');
+    const beep = new Audio('sounds/beep.mp3');
+
+    function formatTime(seconds) {
+   const mins = Math.floor(seconds / 60);
+   const secs = seconds % 60;
+   return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+ }
+
+  function setTimer() {
+    if (totalSeconds <= 0){
+      clearInterval(timerInterval);
+      timerOn = false;
+      buttonElement.innerHTML = 'start focusing';
+      beep.play();
+      return;
+    }
+    totalSeconds--;
+    timerDisplay.textContent = formatTime(totalSeconds);
+
+  }
+
+  buttonElement.addEventListener('click', () => {
+      timerOn = true;
+      buttonElement.innerHTML = timerOn ? 'Pause': 'start focusing';
+      let onPause = false;
+      if (timerOn){
+        timerInterval = setInterval(setTimer, 1000); //runs the function setTimer every 1000ms
+        timeIndicatorText.innerHTML = `
+      <div class="focus-text-container">
+      <div class="circle-2"></div>
+      <div class="focus-text">FOCUSING</div>
+      </div> `
+
+
+      }
+
+      
+    });
+
+
+
+    </script>
+  </body>
+</html>

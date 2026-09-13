@@ -1,0 +1,87 @@
+ body {
+        background-image: url('../images/pomodoro-background1.avif');
+        background-size: cover;      /* scales to cover the full area */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed; /* optional: keeps it fixed on scroll */
+        min-height: 100vh;
+        font-family: 'Manrope', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .circle {
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 3px;
+        margin-right: 8px;
+      }
+      .circle-2{
+         width: 6px;
+        height: 6px;
+        background: #4CAF9C;
+        border-radius: 3px;
+        margin-right: 8px;
+      }
+      .header-text{
+        color: white;
+        font-weight: lighter;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+
+      }
+      
+      .header-text-container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        top: 28px;
+        left: 20px;
+        position: absolute;
+      }
+      .focus-text-container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      .focus-text{
+        color:  rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .main-container{
+        display: flex; 
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+      .session-time-text{
+        color:  rgba(255, 255, 255, 0.8);
+        font-size: 16px;
+        font-weight: 500;
+
+      }
+      .session-timer{
+        color: white;
+        font-size: 72px;
+        font-weight: 500;
+      }
+      .focus-button{
+        
+        color: #ffffffd9;
+        background-color: #ffffff1a;
+        border: 0.3px solid rgba(255, 255, 255, 0.4) ; /* */
+        border-radius: 50px;
+        cursor: pointer;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        padding: 12px 48px;
+        transition: background 0.3s ease;
+
+      }
