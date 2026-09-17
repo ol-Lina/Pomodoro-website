@@ -40,6 +40,30 @@
         left: 20px;
         position: absolute;
       }
+      .color-palette-button{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        top: 28px;
+        right: 20px;
+        position: absolute;
+        height: 32px;
+        width: 32px;  
+        border-radius: 16px;  
+        cursor: pointer;  
+        background-color: #ffffff1a;
+        border: 0.3px solid rgba(255, 255, 255, 0.4) ; 
+         backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .color-palette-icon{
+        width: 20px;
+        height: 20px;
+      }
       .focus-text-container{
         display: flex;
         flex-direction: row;
@@ -85,3 +109,32 @@
         transition: background 0.3s ease;
 
       }
+      .reset-icon {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        transform: scaleX(-1);
+      }
+
+      .reset-button{
+        height: 40px;
+        width: 40px;  
+        border-radius: 22px;  
+        cursor: pointer;  
+        background-color: #ffffff1a;
+        border: 0.3px solid rgba(255, 255, 255, 0.4) ; 
+         backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .button-container{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+      }
+
+      

@@ -14,11 +14,17 @@
       <div class="circle"></div>
       <div class="header-text">Focus Pomodoro Timer</div>
     </div>
+    <div class='color-palette-button' role=button>
+       <img src="icons/color_palette_icon.svg" class="color-palette-icon" >
+    </div>
     <div class="main-container">
       
       <div class="session-time-text">01 minute session</div>
       <div class="session-timer">01:00</div>
-      <button  class="focus-button" id="js-focus-button">start focusing </button>
+      <div class="button-container">
+        <button  class="focus-button" id="js-focus-button">start focusing </button>
+      </div>
+      
     </div>
     
     <script>
@@ -28,7 +34,9 @@
     let totalSeconds = 1 * 60 ;
     let timerOn = false;
     let timerInterval = null;
+    let buttonContainer =  document.querySelector('.button-container');
     let timeIndicatorText = document.querySelector('.session-time-text');
+    
     const beep = new Audio('sounds/beep.mp3');
 
     function formatTime(seconds) {
@@ -42,6 +50,8 @@
       clearInterval(timerInterval);
       timerOn = false;
       buttonElement.innerHTML = 'start focusing';
+      
+      resetButton.remove();
       beep.play();
       return;
     }
@@ -50,25 +60,52 @@
 
   }
 
-  buttonElement.addEventListener('click', () => {
-      timerOn = true;
-      buttonElement.innerHTML = timerOn ? 'Pause': 'start focusing';
-      let onPause = false;
-      if (timerOn){
-        timerInterval = setInterval(setTimer, 1000); //runs the function setTimer every 1000ms
-        timeIndicatorText.innerHTML = `
+  buttonElement.addEventListener('click', ()  => {
+    if (buttonElement.innerHTML.trim().toLowerCase() === 'start focusing') {
+     // timerOn = true;
+      buttonElement.innerHTML = 'Pause';
+      timerInterval = setInterval(setTimer, 1000); //runs the function setTimer every 1000ms
+      timeIndicatorText.innerHTML = `
       <div class="focus-text-container">
       <div class="circle-2"></div>
       <div class="focus-text">FOCUSING</div>
       </div> `
+      buttonContainer.insertAdjacentHTML('afterbegin', `
+      <div class='reset-button' >
+       <img src="icons/reset_icon.svg" class="reset-icon" >
+      </div>`);
+      const resetButton = document.querySelector('.reset-button');
 
-
-      }
+      resetButton.addEventListener('click', () => {
+      clearInterval(timerInterval);
+      const mainContainer = document.querySelector('.main-container');
+      mainContainer.innerHTML = `
+      <div class="session-time-text">01 minute session</div>
+      <div class="session-timer">01:00</div>
+      <div class="button-container">
+        <button  class="focus-button" id="js-focus-button">start focusing </button>
+      </div>
+      `});
+    }
+    else if (buttonElement.innerHTML == 'Pause'){
+      buttonElement.innerHTML = 'Resume';
+      clearInterval(timerInterval);
+      timeIndicatorText.innerHTML = `
+      <div class="focus-text">Paused</div>`;
+    }
+    else if (buttonElement.innerHTML == 'Resume'){
+      buttonElement.innerHTML = 'Pause';
+      timerInterval = setInterval(setTimer, 1000); //runs the function setTimer every 1000ms
+      timeIndicatorText.innerHTML = `
+      <div class="focus-text-container">
+      <div class="circle-2"></div>
+      <div class="focus-text">FOCUSING</div>
+      </div> `
+    }
+      });
 
       
-    });
-
-
+    
 
     </script>
   </body>
