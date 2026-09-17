@@ -115,15 +115,16 @@
    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
    }
 
-   let time =  Number(localStorage.getItem('savedMinutes'));
- let totalSeconds =  time * 60 || 25 * 60
+ let time =  Number(localStorage.getItem('savedMinutes'));
+ let totalSeconds =  time * 60 || 25 * 60;
  timerDisplay.textContent = formatTime(totalSeconds);
  timeIndicatorText.textContent= `${String(time)} minutes session`;
- function resetToInitialState(){
- 
-      totalSeconds = Number(localStorage.getItem('savedMinutes')) * 60
+
+ function resetToInitialState(){ 
+      totalMinutes = Number(localStorage.getItem('savedMinutes'));
+      totalSeconds = totalMinutes * 60;
       timerDisplay.textContent = formatTime(totalSeconds); 
-      timeIndicatorText.textContent = '25 minute';
+      timeIndicatorText.textContent= `${String(totalMinutes)} minutes session`;
       resetButton.remove();
       buttonElement.textContent='START FOCUSING';
  } 
