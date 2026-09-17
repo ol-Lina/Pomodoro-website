@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Lina's Pomodoro Timer</title>
+    <title> Lina's Pomodoro Timer</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet">
@@ -19,39 +20,117 @@
     </div>
     <div class="main-container">
       
-      <div class="session-time-text">01 minute session</div>
-      <div class="session-timer">01:00</div>
+      <div class="session-time-text">25 minute session</div>
+      <div class="session-timer"></div>
       <div class="button-container">
         <button  class="focus-button" id="js-focus-button">start focusing </button>
       </div>
       
     </div>
+
+    <div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <div class="modal-header">
+      <h1>Personalize your Space</h1>
+      <button class="close-btn" aria-label="Close">&#10005;</button>
+    </div>
+
+    <div class="duration-section">
+      <p class="section-label">Duration</p>
+      <div class="duration-grid">
+        <div class="duration-pill">15m</div>
+        <div class="duration-pill">20m</div>
+        <div class="duration-pill">25m</div>
+        <div class="duration-pill">30m</div>
+        <div class="duration-pill">45m</div>
+        <div class="duration-pill">60m</div>
+      </div>
+      <div class="custom-duration">
+        <input type="text" placeholder="Custom (1–180 min)">
+        <button class="set-btn">Set</button>
+      </div>
+    </div>
+
+    <div class="background-section">
+      <p class="section-label">Background</p>
+      <div class="background-grid">
+        <div class="bg-option">
+          <div class="bg-option-img"><img src="images/pomodoro-background1.avif" alt="Pink Fields"></div>
+          
+          <div class="bg-option-label">Pink Fields</div>
+        </div>
+
+        <div class="bg-option">
+          <div class="bg-option-img"><img src="images/pomodoro-background2.jpeg" alt="Valley Vista"></div>
+          
+          <div class="bg-option-label">Valley Vista</div>
+        </div>
+
+        <div class="bg-option">
+          <div class="bg-option-img"><img src="images/pomodoro-background3.jpeg" alt="Golden Shore"></div>
+          
+          <div class="bg-option-label">Golden Shore</div>
+        </div>
+
+        <div class="bg-option">
+          <div class="bg-option-img"><img src="images/pomodoro-background4.jpeg" alt="Alpine Dusk"></div>
+          
+          <div class="bg-option-label">Alpine Dusk</div>
+        </div>
+
+        <div class="bg-option">
+          <div class="bg-option-img"><img src="images/pomodoro-background5.avif" alt="Aurora"></div>
+          <div class="bg-option-label">Aurora</div>
+        </div>
+
+        <div class="bg-option">
+          <div class="bg-option-img"><img src="images/pomodoro-background6.avif" alt="Dusk Peak"></div>
+          
+          <div class="bg-option-label">Dusk Peak</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer"><i>Made with</i> 🤍 <i>by lina</i></div>
     
     <script>
+    let bgImage = localStorage.getItem('savedBgImage');
+    if (bgImage) 
+  document.body.style.backgroundImage = `url("${bgImage}")`;
     const buttonElement = document.getElementById('js-focus-button');
     
     const timerDisplay = document.querySelector('.session-timer');
-    let totalSeconds = 1 * 60 ;
-    let timerOn = false;
     let timerInterval = null;
     let buttonContainer =  document.querySelector('.button-container');
     let timeIndicatorText = document.querySelector('.session-time-text');
-    
-    const beep = new Audio('sounds/beep.mp3');
+   
 
+    const beep = new Audio('sounds/beep.mp3');
+    let resetButton;
     function formatTime(seconds) {
    const mins = Math.floor(seconds / 60);
    const secs = seconds % 60;
    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
- }
+   }
 
+   let time =  Number(localStorage.getItem('savedMinutes'));
+ let totalSeconds =  time * 60 || 25 * 60
+ timerDisplay.textContent = formatTime(totalSeconds);
+ timeIndicatorText.textContent= `${String(time)} minutes session`;
+ function resetToInitialState(){
+ 
+      totalSeconds = Number(localStorage.getItem('savedMinutes')) * 60
+      timerDisplay.textContent = formatTime(totalSeconds); 
+      timeIndicatorText.textContent = '25 minute';
+      resetButton.remove();
+      buttonElement.textContent='START FOCUSING';
+ } 
   function setTimer() {
     if (totalSeconds <= 0){
       clearInterval(timerInterval);
-      timerOn = false;
-      buttonElement.innerHTML = 'start focusing';
-      
-      resetButton.remove();
+      resetToInitialState();
       beep.play();
       return;
     }
@@ -62,7 +141,7 @@
 
   buttonElement.addEventListener('click', ()  => {
     if (buttonElement.innerHTML.trim().toLowerCase() === 'start focusing') {
-     // timerOn = true;
+     
       buttonElement.innerHTML = 'Pause';
       timerInterval = setInterval(setTimer, 1000); //runs the function setTimer every 1000ms
       timeIndicatorText.innerHTML = `
@@ -74,18 +153,12 @@
       <div class='reset-button' >
        <img src="icons/reset_icon.svg" class="reset-icon" >
       </div>`);
-      const resetButton = document.querySelector('.reset-button');
+       resetButton = document.querySelector('.reset-button');
 
       resetButton.addEventListener('click', () => {
       clearInterval(timerInterval);
-      const mainContainer = document.querySelector('.main-container');
-      mainContainer.innerHTML = `
-      <div class="session-time-text">01 minute session</div>
-      <div class="session-timer">01:00</div>
-      <div class="button-container">
-        <button  class="focus-button" id="js-focus-button">start focusing </button>
-      </div>
-      `});
+      resetToInitialState();
+    });
     }
     else if (buttonElement.innerHTML == 'Pause'){
       buttonElement.innerHTML = 'Resume';
@@ -104,8 +177,70 @@
     }
       });
 
-      
-    
+
+      const clpBtn = document.querySelector('.color-palette-button'); 
+      const backdrop = document.getElementById('modalBackdrop');
+      const closeBtn = document.querySelector('.close-btn');
+
+      clpBtn.addEventListener('click', () => {
+        backdrop.classList.add('open');
+      });
+
+      closeBtn.addEventListener('click', () => {
+        backdrop.classList.remove('open');
+      });
+
+      // optional: click on the dark area (outside the modal) also closes it
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) {
+          backdrop.classList.remove('open');
+        }
+      });
+
+      document.querySelectorAll('.bg-option').forEach(option => {
+      option.addEventListener('click', () => {
+      document.querySelectorAll('.bg-option').forEach(o => o.classList.remove('selected'));
+      option.classList.add('selected');
+      const img = option.querySelector('img');
+      document.body.style.backgroundImage = `url("${img.src}")`; 
+      localStorage.setItem('savedBgImage', img.src);
+  });
+});
+
+function setSessionDuration(minutes) {
+  totalSeconds = minutes * 60;
+  document.querySelector('.session-time-text').textContent = `${String(minutes)} min session`;
+  timerDisplay.textContent = formatTime(totalSeconds);
+}
+
+document.querySelectorAll('.duration-pill').forEach(durationBtn => {
+  durationBtn.addEventListener('click', () => {
+   let Duration = durationBtn.innerHTML;
+   let timeDuration = parseInt(Duration, 10);
+   setSessionDuration(timeDuration);
+   localStorage.setItem('savedMinutes', timeDuration); 
+  });
+});
+
+  const customInput = document.querySelector('.custom-duration input');
+  const setBtn = document.querySelector('.set-btn');
+
+  setBtn.addEventListener('click', () => {
+  let minutes = parseInt(customInput.value, 10);
+
+  if (isNaN(minutes) || minutes < 1 || minutes > 180) 
+    return; 
+  setSessionDuration(minutes); 
+  localStorage.setItem('savedMinutes', minutes); 
+});
+
+customInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    setBtn.click();
+  }
+});
+
+
 
     </script>
   </body>

@@ -137,4 +137,228 @@
         align-items: center;
       }
 
-      
+
+    :root {
+  --bg-modal: #1c1f22;
+  --bg-pill: #2b2f33;
+  --bg-pill-hover: #34383d;
+  --bg-input: #26292d;
+  --text-primary: #f2f2f0;   /* the light gray text color */
+  --text-secondary: #9a9d9f;
+  --text-label: #7c8083;
+  --border-subtle: rgba(255,255,255,0.06);
+  --accent: #ffffff;
+}
+    .modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);  /* the "darker" dimming effect */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-backdrop.open {
+  display: flex;
+}
+
+.modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: 86vh;
+  overflow-y: auto;
+  background: var(--bg-modal);
+  border-radius: 20px;
+  padding: 28px 28px 32px;
+  color: var(--text-primary);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+}
+
+.modal::-webkit-scrollbar { width: 6px; }
+.modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.modal-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.close-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.06);
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-label);
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+
+/* Duration */
+
+.duration-section {
+  margin-bottom: 24px;
+}
+
+.duration-grid {
+  display: flex;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.duration-pill {
+  background: var(--bg-pill);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  border-radius: 10px;
+  padding: 8px 22px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.duration-pill:hover { background: var(--bg-pill-hover); }
+.duration-pill:active { transform: scale(0.98); }
+
+.duration-pill.selected {
+  background: var(--text-primary);
+  color: #111;
+  border-color: transparent;
+}
+
+.custom-duration {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 4px 4px 4px 16px;
+}
+
+.custom-duration input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 15px;
+  padding: 10px 0;
+}
+
+.custom-duration input::placeholder {
+  color: var(--text-secondary);
+}
+
+.set-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.set-btn:hover { background: rgba(255,255,255,0.08); }
+
+/* Background grid */
+
+.background-section { margin-top: 28px; }
+
+.background-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.bg-option {
+  position: relative;
+  aspect-ratio: 5 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: #2b2f33;
+}
+
+.bg-option.selected {
+  border-color: var(--accent);
+}
+
+.bg-option.selected .bg-check {
+  display: flex;          /* show it only when .selected is on the parent */
+}
+
+.bg-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+
+.bg-option-label {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.bg-check {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-check svg {
+  width: 12px;
+  height: 12px;
+ 
+}
+
+.footer{
+  color: rgba(242, 231, 231, 0.863);
+  position: absolute;
+  bottom: 12px; 
+}
